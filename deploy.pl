@@ -2,17 +2,6 @@
 
 # chmod +x ket dhe hudhe te /usr/bin/ ose me nej bin tjeter
 
-# i'm letting this here for a bit 
-# git checkout master
-# git pull
-# git fetch
-# git merge turi
-# git push
-# git checkout turi
-# git pull -u origin master
-# git status
-
-
 # setting paths
 my $test_site_path = "/home/tarak/Dropbox/monx/monx/";
 my $live_site_path = "/home/tarak/Dropbox/monx/monx-live/";
