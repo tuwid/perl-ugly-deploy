@@ -1,16 +1,8 @@
 #!/usr/bin/perl
 
 # chmod +x ket dhe hudhe te /usr/bin/ ose me nej bin tjeter
-# check status
-# pull test ne server
-# pull live ne server
-# merge test to master
 
 # i'm letting this here for a bit 
-# git checkout turi
-# git add -A .
-# git commit -a -m "$1"
-# git push
 # git checkout master
 # git pull
 # git fetch
@@ -105,12 +97,12 @@ sub sanity_check{
 sub pull_repo{
 	my $repo = $_;
 	if($repo eq "testing"){
-		print "Pulling on the test repo..";
+		print "Updating/Pulling on the test repo..";
 		my $pull_f = `git -C $test_site_path fetch`;
 		my $pull_p = `git -C $test_site_path pull`;		
 	}
 	elsif($repo eq "live"){
-		print "Pulling on the live repo..";
+		print "Updating/Pulling on the live repo..";
 		my $pull_f = `git -C $live_site_path fetch`;
 		my $pull_p = `git -C $live_site_path pull`;				
 	}
@@ -118,16 +110,22 @@ sub pull_repo{
 	print $pull_test."\n";
 }
 
-sub merge_repo{
-
+sub merge_testing{
+		print "Merging testing on live..";
+		my $merge_t = `git -C $test_site_path merge $test_branch`;
+		my $push_merge = `git -C $test_site_path push`;	
 }
 
 sub revert_last{
-	
+
 }
 
 if(sanity_check()){
 	print "Sanity check passed.. \n";
+	pull_repo("testing");
+	pull_repo("live");
+	merge_repo();
+	pull_repo("live");
 
 }
 else{
