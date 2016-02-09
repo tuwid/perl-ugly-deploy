@@ -83,6 +83,20 @@ sub sanity_check{
 	return 1;
 }
 
+sub pull_repo{
+	my $repo = $_;
+	print "Here be dragons ..";
+	my $pull_raport = "Updating ";
+
+	$pull_raport .= `git -C $test_site_path checkout $test_branch`;
+	$pull_raport .= `git -C $test_site_path pull`;
+	$pull_raport .= `git -C $test_site_path fetch`;
+	$pull_raport .= `git -C $test_site_path status`;
+
+	print "$pull_raport\n";
+}
+
+
 sub pull_and_merge{
 	print "Here be dragons ..";
 	my $pull_raport = "Updating ";
@@ -98,10 +112,10 @@ sub pull_and_merge{
 	$pull_raport .= `git -C $live_site_path status`;
 
 	#my $repo = $_;
-	#if($repo eq "testing"){
-	# my $pull_f = `git -C $test_site_path fetch`;
-	# my $pull_p = `git -C $test_site_path pull`;		
-	#}
+	if($repo eq "testing"){
+	 $pull_raport .= `git -C $test_site_path fetch`;
+	 $pull_raport .= `git -C $test_site_path pull`;		
+	}
 	# if($repo eq "live"){
 	# 	print "Updating/Pulling on the live repo..";
 	# 	my $pull_f = `git -C $live_site_path fetch`;
@@ -111,26 +125,10 @@ sub pull_and_merge{
 	print "$pull_raport\n";
 }
 
-# sub merge_testing{
-# 	print "Merging testing on live..";
-# 	my $merge_t = `git -C $test_site_path merge $test_branch`;
-# 	my $push_merge_t = `git -C $test_site_path push`;	
-# 	my $merge_l = `git -C $live_site_path merge $test_branch`;
-# 	my $push_merge_l = `git -C $live_site_path push`;	
-# 	print "Output merge testing : \n $merge_t \n";
-# 	print "Output merge live : \n $merge_l \n";
-# 	#print "Output push testing : \n $push_merge_t \n";
-# 	#print "Output push live : \n $push_merge_l \n";
-# }
-
-# sub revert_last{
-
-# }
-
 if(sanity_check()){
 	print "Sanity check passed.. \n";
-	pull_and_merge();
-	# pull_repo("testing");
+	#pull_and_merge();
+	pull_repo("testing");
 	# pull_repo("live");
 	# merge_testing();
 }
